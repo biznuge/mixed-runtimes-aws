@@ -35,16 +35,16 @@
       <version>2.9.8</version>
     </dependency>
     <!-- https://github.com/biznuge/mixed-runtimes-aws/network/alert/pom.xml/com.fasterxml.jackson.core:jackson-databind/open
-    <dependency>
+    --><dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.9.8</version>
-    </dependency>-->
-    <dependency>
+    </dependency>
+    <!--<dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>[2.9.10,)</version>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
