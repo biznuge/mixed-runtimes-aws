@@ -8,7 +8,7 @@ Nothing Fancy, standard small instance should be fine, but also bear in mind, wi
 * AWS Ubuntu 18 LTS EC2 small instance
 * 30GB of disk space
 
-##Build server reqs
+## Build server reqs
 * AWS CLI installed (might be there already)
 * IAM user setup in AWS.
 * IAM user in place on build server.
