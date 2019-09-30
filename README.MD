@@ -58,3 +58,9 @@ _From main project folder._
 > mvn package
 
 
+## Recursive NPM Install
+Also used this package on the build server once I got bored of 4 seperate npm installs per tear down.
+
+https://www.npmjs.com/package/recursive-install
+
+
