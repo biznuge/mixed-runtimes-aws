@@ -21,7 +21,7 @@ package:
   include:
     - '*.py'
     - 'cv2'
-  artifact: target/java/lib/mixedruntimejavamodules-dev.jar
+
 
 layers:
 
