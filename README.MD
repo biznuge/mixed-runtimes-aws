@@ -1,5 +1,3 @@
-#README
-
 ## BEFORE YOU START
 Building this is non-trivial. It's NOT gonna work on a non-enterprise windows machine, and might be a ballache on a Mac too, so you'll probably want to spin up an AWS Ubuntu 18 LTS EC2 instance to use as a build server. 
 
