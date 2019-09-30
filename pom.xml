@@ -52,31 +52,8 @@
     </dependency>
   </dependencies>
 
-  <!-- http://docs.aws.amazon.com/lambda/latest/dg/java-create-jar-pkg-maven-no-ide.html -->
   <build>
     <directory>target/java/lib</directory>
-    <!--<plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <createDependencyReducedPom>false</createDependencyReducedPom>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              &lt;!&ndash; remove version from package name &ndash;&gt;
-              <finalName>${project.artifactId}</finalName>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>-->
   </build>
 
 </project>
