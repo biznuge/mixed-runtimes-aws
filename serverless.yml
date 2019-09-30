@@ -1,0 +1,127 @@
+# NOTE: update this with your own service name
+service: mixedRuntimes
+
+plugins:
+  - serverless-python-requirements
+
+provider:
+  name: aws
+  region: eu-west-2
+  stage: dev
+
+  # You have to set a runtime here. CF won't deploy with a null value unfortunately.
+  # Setting this as NodeJS since that's where most of our pre-existing assets are...
+  runtime: nodejs10.x
+
+
+package:
+  exclude:
+    - node_modules/**
+    - nodelibs/**
+  include:
+    - '*.py'
+    - 'cv2'
+  artifact: target/java/lib/mixedruntimejavamodules-dev.jar
+
+layers:
+
+  # WARNING:
+  # These layers can collide if you name them on projects that straddle the same region.
+  # Found out the hard way.
+
+  mixedruntimenodemodules0:
+    path: nodelibs0
+    compatibleRuntimes:
+      - nodejs10.x
+
+  mixedruntimenodemodules1:
+    path: nodelibs1
+    compatibleRuntimes:
+      - nodejs10.x
+
+  mixedruntimenodemodules2:
+    path: nodelibs2
+    compatibleRuntimes:
+      - nodejs10.x
+
+  mixedruntimejavamodules:
+    path: target
+    compatibleRuntimes:
+      - java8
+
+custom:
+  pythonRequirements:
+    # needs docker on the build instance.
+    dockerizePip: true
+    layer: true
+
+
+functions:
+
+  nodeGenerateId0:
+    # handler syntax: [FOLDER]/[FILENAME-NO-EXTENSION].[FUNCTION-NAME]
+    handler: src/main/functions.generateId
+    layers:
+      - {Ref: Mixedruntimenodemodules0LambdaLayer}
+    memorySize: 128
+    timeout: 30
+    runtime: nodejs10.x
+    events:
+      - http:
+          path: node/0/id
+          method: get
+
+  nodeGenerateId1:
+    # handler syntax: [FOLDER]/[FILENAME-NO-EXTENSION].[FUNCTION-NAME]
+    handler: src/main/functions.generateId
+    layers:
+      - {Ref: Mixedruntimenodemodules1LambdaLayer}
+      - {Ref: Mixedruntimenodemodules2LambdaLayer}
+    memorySize: 128
+    timeout: 30
+    runtime: nodejs10.x
+    events:
+      - http:
+          path: node/1/id
+          method: get
+
+  nodeGenerateId2:
+    # handler syntax: [FOLDER]/[FILENAME-NO-EXTENSION].[FUNCTION-NAME]
+    handler: src/main/functions.generateId
+    layers:
+      - {Ref: Mixedruntimenodemodules0LambdaLayer}
+      - {Ref: Mixedruntimenodemodules1LambdaLayer}
+      - {Ref: Mixedruntimenodemodules2LambdaLayer}
+    memorySize: 128
+    timeout: 30
+    runtime: nodejs10.x
+    events:
+      - http:
+          path: node/2/id
+          method: get
+
+
+  pythonGenerateId:
+    # handler syntax: [FOLDER]/[FILENAME-NO-EXTENSION].[FUNCTION-NAME]
+    handler: src/main/functions.generateId
+    layers:
+      - {Ref: PythonRequirementsLambdaLayer}
+    memorySize: 128
+    timeout: 30
+    runtime: python3.7
+    events:
+      - http:
+          path: python/id
+          method: get
+
+  javaGenerateId:
+    handler: com.serverless.Handler
+    layers:
+      - {Ref: MixedruntimejavamodulesLambdaLayer}
+    memorySize: 128
+    timeout: 30
+    runtime: java8
+    events:
+      - http:
+          path: java/id
+          method: get

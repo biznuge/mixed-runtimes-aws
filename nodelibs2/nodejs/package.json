@@ -1,0 +1,7 @@
+{
+  "name": "nodelibs",
+  "version": "1.0.0",
+  "dependencies": {
+    "loopback": "^3.26.0"
+  }
+}
